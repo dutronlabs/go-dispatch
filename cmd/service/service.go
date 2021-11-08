@@ -5,7 +5,7 @@ import (
 	"syscall"
 	"go.uber.org/zap"
 	"os/signal"
-
+	"github.com/spf13/viper"
 )
 
 type Service struct {
@@ -29,3 +29,10 @@ func NewService(adminPort uint) *Service {
 	}
 }
 
+func (s *Service) SetHealthCheckStatus(status Status){
+	s.hcStatusChannel <- status
+}
+
+func (s *Service) Start(v *viper.Viper) error {
+	return nil
+}

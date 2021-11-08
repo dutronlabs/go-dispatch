@@ -9,5 +9,5 @@ import (
 const serviceName = "go-dispatch"
 
 func main() {
-	fmt.Errorf("Not implemented yet.")
+	fmt.Printf("Not implemented yet.")
 }

@@ -3,8 +3,9 @@ module github.com/dutronlabs/go-dispatch
 go 1.17
 
 require (
-	github.com/google/uuid v1.3.0
+	github.com/golang/protobuf v1.5.2
 	go.uber.org/zap v1.19.1
+	google.golang.org/protobuf v1.27.1
 )
 
 require (
@@ -25,7 +26,6 @@ require (
 )
 
 require (
-	github.com/gofrs/uuid v4.1.0+incompatible
 	github.com/spf13/viper v1.9.0
 	go.uber.org/atomic v1.7.0 // indirect
 	go.uber.org/multierr v1.6.0 // indirect

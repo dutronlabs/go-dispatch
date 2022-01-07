@@ -2,10 +2,12 @@ package service
 
 import (
 	"os"
-	"syscall"
-	"go.uber.org/zap"
 	"os/signal"
+	"syscall"
+
+	"github.com/gorilla/mux"
 	"github.com/spf13/viper"
+	"go.uber.org/zap"
 )
 
 type Service struct {
@@ -15,6 +17,8 @@ type Service struct {
 	// MetricsFactory metrics.Factory
 	signalsChannel chan os.Signal
 	hcStatusChannel chan Status
+	// Mux Router
+	Router mux.Router
 }
 
 func NewService(adminPort uint) *Service {
@@ -23,10 +27,13 @@ func NewService(adminPort uint) *Service {
 	signal.Notify(signalsChannel, os.Interrupt, syscall.SIGTERM)
 
 	return &Service{
-		// Admin: NewAdminServer(ports.PortToHostPort(adminPort)),
-		signalsChannel: signalsChannel,
+		AdminPort:       adminPort,
+		Logger:          &zap.Logger{},
+		signalsChannel:  signalsChannel,
 		hcStatusChannel: hcStatusChannel,
+		Router:          InitializeRouter(),
 	}
+
 }
 
 func (s *Service) SetHealthCheckStatus(status Status){
